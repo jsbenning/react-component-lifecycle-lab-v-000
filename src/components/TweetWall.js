@@ -1,7 +1,7 @@
 import React from 'react';
 import Tweet from './Tweet';
 
-// this.props.newTweets is sent down from app, fetched array
+// commented out my original version to meet requirements
 
 class TweetWall extends React.Component {
   constructor(props) {
@@ -23,14 +23,25 @@ class TweetWall extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return (nextProps.newTweets !== this.state.tweets );
+    //return (nextProps.newTweets !== this.state.tweets );
+    return (nextProps.newTweets.length);
   }
 
   componentWillReceiveProps(nextProps){
-    if (nextProps.newTweets.length) {
-      this.state.tweets.push(nextProps.newTweets[0])
-      console.log(this.state)
+    //if (nextProps.newTweets.length) {
+    for (let i=0; i<nextProps.newTweets.length; i++){
+      let tweets = this.state.tweets.slice();
+      tweets.unshift(nextProps.newTweets[i]);
+      this.setState({ tweets: tweets })
+
     }
+
+    //this.setState({ tweets: tweets})
+
+      //this.state.tweets.push(nextProps.newTweets[i])
+      //this.state.tweets.push(nextProps.newTweets[0])
+      //console.log(this.state)
+    //}
   }
 
   render() {
